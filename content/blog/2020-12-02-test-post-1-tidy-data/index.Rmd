@@ -9,19 +9,34 @@ tags:
 type: post
 ---
 
-#### Setup
+**OBJECTIVE:** Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.
+* Add columns and change values with `mutate()`
+* Choose columns with `select()`
+* Choose rows with `filter()`
+* Manipulate data with `pivot_longer()`
+
+## Setup
 
 ```{r}
 library(tidyverse)
 ```
 
-### Initial Data
+
+# Create Data
+
+### Lists
+
+Our fantasy football league started in 2012. We have 12 participants that we refer to as general managers (GMs). The league, HFFFL, started in 20012.
 
 ```{r}
+gm <- c("Alex", "Ashton", "Mik", "Katz", "Dave", "Brett", "Ian", "Jack", "Jon", "Chris", "Todd", "Nate")
+# alphabetized
+gm <- sort(gm)
+
 # years league has been active
 year <- c(2012:2019)
 
-# podium placement
+# podium placement in order by year
 first <- c("Mik", "Nate", "Nate", "Chris", "Nate", "Nate", "Dave", "Dave")
 second <- c("Jon", "Alex", "Ian", "Todd", "Jon", "Chris", "Jon", "Jon")
 third <- c("Katz", "Katz", "Jack", "Dave", "Katz", "Katz", "Chris", "Todd")
@@ -31,47 +46,119 @@ third <- c("Katz", "Katz", "Jack", "Dave", "Katz", "Katz", "Chris", "Todd")
 
 ```{r}
 podium <- tibble(year, first, second, third)
-
 # show data
 podium
 ```
 
-### Add Variable (column)
+### Add Column (variable)
 * `mutate()` - create, modify, & delete variables
 
-```{r}
-tbl <- podium %>% mutate(dues = 60, .after = "third")
+From 2012 through 2016 our dues were $60 per GM per year.
 
+```{r}
+# create a dues column, fill values with $60 USD
+tbl <- podium %>% mutate(dues = 60, .after = "third")
 # show data
 tbl
 ```
 
-### Subset Observations - rows
+### Filter Rows (observations)
 * `filter()` - subset rows using column values
 
+Since 2018, our dues were increased to $70 per year. We need to adjust those values
+
 ```{r}
-# change dues in year 2018 & 2019 to value 70
+# filter the observations we need
+tbl %>%
+    filter(year > 2017)
+```
+
+```{r}
+# change the dues from 60 to 70
+tbl %>%
+    filter(year > 2017) %>%
+    mutate(dues = 70)
+```
+
+
+```{r}
+# assign the new rows to replace bottom two rows of our tibble
 tbl[7:8, ] <-
     tbl %>%
     filter(year > 2017) %>%
     mutate(dues = 70)
-
-# show replaced data
+# show data
 tbl
 ```
 
-
-### Subset Variables - columns
+### Select Columns (variables)
 * `select()` - subset columns using their name & type
 
 ```{r}
-tbl %>% select(first, second, third)
+tbl %>% select(first, third)
 ```
 
-### Select Variables, Filter Observations
+### Select Variables & Filter Observations
 
 ```{r}
 tbl %>% 
     select(year, first, second, third) %>%
     filter(year < 2016)
 ```
+
+### Pivot Longer
+* `pivot_longer()`
+
+The Tidyr package reference to `pivot_longer()` isn't helpful. The first line describes the function as<br>`pivot_longer()` "lengthens" data, increasing the number of rows and decreasing the number of columns.<br>That tells you nothing about *how it works*.
+
+Let's explore with some data. Our goal here is to count the number of times each GM has placed first, second, or third. Because this dataset is so small you could simply use a pen and paper to tally up the counts. But that won't work with large data sets and this is one instance where `pivot_longer()` is useful.
+
+Recall the 'podium' tibble.
+
+```{r}
+podium
+```
+
+We need to take all the values (excluding years) and put them into a single column for easier counting. Imagine you had a piece of paper with all these values in a single list column. You could pick a name - we'll use Dave - and go down your list and at the 12th entry you would see 'Dave' (that's 1), then the 19th entry (that's 2), then the 22nd entry (that's 3) and so on.
+
+But you might have noticed a problem! How do you keep track of which entry was a first? Which was a second? And which was third? `pivot_longer()` addresses this by placing the variable names into a single column before the column that holds our values, 'GM'.
+
+```{r}
+# takes the values from each column (first, second, third), but excludes year values
+# places all the values into a GM column
+#
+# variable names are placed into 'name' column
+podium %>%
+    pivot_longer(cols = -year, values_to = 'GM')
+```
+Remember, we are trying to count how many times each GM finishes in the Top 3 of our league. So this means we need to count values of *both* 'name' column & 'GM' column. For example, we would be looking for things like:
+* `first - Nate` - 4x
+* `second - Jon` - 4x
+* `third - Katz` - 4x
+
+Because we need to count both 'name' & 'GM' you see the line in the code below `count(name, GM)`.
+
+```{r}
+# takes the values from each column (first, second, third), but excludes year values
+# places all the values into a GM column
+#
+# count 'name' & 'GM' values together
+podium %>%
+    pivot_longer(cols = -year,
+                 values_to = 'GM') %>%
+    count(name, GM)
+```
+In our 8 seasons (2012-2019), we've had 4 GMs finish first, 5 GMs finish second, and 5 GMs finish third. This can be seen from the data above, but it would be easier to see `first`, `second`, and `third` as variables again like our original tibble, 'podium'. For this we'll have to use the `pivot_wider()` function.
+
+### Pivot Wider
+`pivot_wider()` basically does the inverse of `pivot_longer()`. We tell it which column to take variable *names from*, `name`. We tell it which column to take *values from*, `n`. We can fill in the empty values, NA, using *values fill*. We tell it to take all the empty values into a list, and fill that list with `n = 0`.
+
+```{r}
+podium %>%
+    pivot_longer(cols = -year,
+                 values_to = 'GM') %>%
+    count(name, GM) %>%
+    pivot_wider(names_from = name, values_from = n, values_fill = list(n = 0))
+```
+
+Notice that Brett & Ashton are not on the tibble because they have yet to place in the Top 3.

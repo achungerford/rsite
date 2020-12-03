@@ -13,8 +13,13 @@ type: post
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
 
-<div id="setup" class="section level4">
-<h4>Setup</h4>
+<p><strong>OBJECTIVE:</strong> Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.
+* Add columns and change values with <code>mutate()</code>
+* Choose columns with <code>select()</code>
+* Choose rows with <code>filter()</code>
+* Manipulate data with <code>pivot_longer()</code></p>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
 <pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
@@ -25,12 +30,19 @@ type: post
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
-<div id="initial-data" class="section level3">
-<h3>Initial Data</h3>
-<pre class="r"><code># years league has been active
+<div id="create-data" class="section level1">
+<h1>Create Data</h1>
+<div id="lists" class="section level3">
+<h3>Lists</h3>
+<p>Our fantasy football league started in 2012. We have 12 participants that we refer to as general managers (GMs). The league, HFFFL, started in 20012.</p>
+<pre class="r"><code>gm &lt;- c(&quot;Alex&quot;, &quot;Ashton&quot;, &quot;Mik&quot;, &quot;Katz&quot;, &quot;Dave&quot;, &quot;Brett&quot;, &quot;Ian&quot;, &quot;Jack&quot;, &quot;Jon&quot;, &quot;Chris&quot;, &quot;Todd&quot;, &quot;Nate&quot;)
+# alphabetized
+gm &lt;- sort(gm)
+
+# years league has been active
 year &lt;- c(2012:2019)
 
-# podium placement
+# podium placement in order by year
 first &lt;- c(&quot;Mik&quot;, &quot;Nate&quot;, &quot;Nate&quot;, &quot;Chris&quot;, &quot;Nate&quot;, &quot;Nate&quot;, &quot;Dave&quot;, &quot;Dave&quot;)
 second &lt;- c(&quot;Jon&quot;, &quot;Alex&quot;, &quot;Ian&quot;, &quot;Todd&quot;, &quot;Jon&quot;, &quot;Chris&quot;, &quot;Jon&quot;, &quot;Jon&quot;)
 third &lt;- c(&quot;Katz&quot;, &quot;Katz&quot;, &quot;Jack&quot;, &quot;Dave&quot;, &quot;Katz&quot;, &quot;Katz&quot;, &quot;Chris&quot;, &quot;Todd&quot;)</code></pre>
@@ -38,7 +50,6 @@ third &lt;- c(&quot;Katz&quot;, &quot;Katz&quot;, &quot;Jack&quot;, &quot;Dave&q
 <div id="create-tibble" class="section level3">
 <h3>Create Tibble</h3>
 <pre class="r"><code>podium &lt;- tibble(year, first, second, third)
-
 # show data
 podium</code></pre>
 <pre><code>## # A tibble: 8 x 4
@@ -53,13 +64,14 @@ podium</code></pre>
 ## 7  2018 Dave  Jon    Chris
 ## 8  2019 Dave  Jon    Todd</code></pre>
 </div>
-<div id="add-variable-column" class="section level3">
-<h3>Add Variable (column)</h3>
+<div id="add-column-variable" class="section level3">
+<h3>Add Column (variable)</h3>
 <ul>
 <li><code>mutate()</code> - create, modify, &amp; delete variables</li>
 </ul>
-<pre class="r"><code>tbl &lt;- podium %&gt;% mutate(dues = 60, .after = &quot;third&quot;)
-
+<p>From 2012 through 2016 our dues were $60 per GM per year.</p>
+<pre class="r"><code># create a dues column, fill values with $60 USD
+tbl &lt;- podium %&gt;% mutate(dues = 60, .after = &quot;third&quot;)
 # show data
 tbl</code></pre>
 <pre><code>## # A tibble: 8 x 5
@@ -74,18 +86,35 @@ tbl</code></pre>
 ## 7  2018 Dave  Jon    Chris    60
 ## 8  2019 Dave  Jon    Todd     60</code></pre>
 </div>
-<div id="subset-observations---rows" class="section level3">
-<h3>Subset Observations - rows</h3>
+<div id="filter-rows-observations" class="section level3">
+<h3>Filter Rows (observations)</h3>
 <ul>
 <li><code>filter()</code> - subset rows using column values</li>
 </ul>
-<pre class="r"><code># change dues in year 2018 &amp; 2019 to value 70
+<p>Since 2018, our dues were increased to $70 per year. We need to adjust those values</p>
+<pre class="r"><code># filter the observations we need
+tbl %&gt;%
+    filter(year &gt; 2017)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##    year first second third  dues
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1  2018 Dave  Jon    Chris    60
+## 2  2019 Dave  Jon    Todd     60</code></pre>
+<pre class="r"><code># change the dues from 60 to 70
+tbl %&gt;%
+    filter(year &gt; 2017) %&gt;%
+    mutate(dues = 70)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##    year first second third  dues
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1  2018 Dave  Jon    Chris    70
+## 2  2019 Dave  Jon    Todd     70</code></pre>
+<pre class="r"><code># assign the new rows to replace bottom two rows of our tibble
 tbl[7:8, ] &lt;-
     tbl %&gt;%
     filter(year &gt; 2017) %&gt;%
     mutate(dues = 70)
-
-# show replaced data
+# show data
 tbl</code></pre>
 <pre><code>## # A tibble: 8 x 5
 ##    year first second third  dues
@@ -99,26 +128,26 @@ tbl</code></pre>
 ## 7  2018 Dave  Jon    Chris    70
 ## 8  2019 Dave  Jon    Todd     70</code></pre>
 </div>
-<div id="subset-variables---columns" class="section level3">
-<h3>Subset Variables - columns</h3>
+<div id="select-columns-variables" class="section level3">
+<h3>Select Columns (variables)</h3>
 <ul>
 <li><code>select()</code> - subset columns using their name &amp; type</li>
 </ul>
-<pre class="r"><code>tbl %&gt;% select(first, second, third)</code></pre>
-<pre><code>## # A tibble: 8 x 3
-##   first second third
-##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-## 1 Mik   Jon    Katz 
-## 2 Nate  Alex   Katz 
-## 3 Nate  Ian    Jack 
-## 4 Chris Todd   Dave 
-## 5 Nate  Jon    Katz 
-## 6 Nate  Chris  Katz 
-## 7 Dave  Jon    Chris
-## 8 Dave  Jon    Todd</code></pre>
+<pre class="r"><code>tbl %&gt;% select(first, third)</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   first third
+##   &lt;chr&gt; &lt;chr&gt;
+## 1 Mik   Katz 
+## 2 Nate  Katz 
+## 3 Nate  Jack 
+## 4 Chris Dave 
+## 5 Nate  Katz 
+## 6 Nate  Katz 
+## 7 Dave  Chris
+## 8 Dave  Todd</code></pre>
 </div>
 <div id="select-variables-filter-observations" class="section level3">
-<h3>Select Variables, Filter Observations</h3>
+<h3>Select Variables &amp; Filter Observations</h3>
 <pre class="r"><code>tbl %&gt;% 
     select(year, first, second, third) %&gt;%
     filter(year &lt; 2016)</code></pre>
@@ -129,4 +158,102 @@ tbl</code></pre>
 ## 2  2013 Nate  Alex   Katz 
 ## 3  2014 Nate  Ian    Jack 
 ## 4  2015 Chris Todd   Dave</code></pre>
+</div>
+<div id="pivot-longer" class="section level3">
+<h3>Pivot Longer</h3>
+<ul>
+<li><code>pivot_longer()</code></li>
+</ul>
+<p>The Tidyr package reference to <code>pivot_longer()</code> isn’t helpful. The first line describes the function as<br><code>pivot_longer()</code> “lengthens” data, increasing the number of rows and decreasing the number of columns.<br>That tells you nothing about <em>how it works</em>.</p>
+<p>Let’s explore with some data. Our goal here is to count the number of times each GM has placed first, second, or third. Because this dataset is so small you could simply use a pen and paper to tally up the counts. But that won’t work with large data sets and this is one instance where <code>pivot_longer()</code> is useful.</p>
+<p>Recall the ‘podium’ tibble.</p>
+<pre class="r"><code>podium</code></pre>
+<pre><code>## # A tibble: 8 x 4
+##    year first second third
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+## 1  2012 Mik   Jon    Katz 
+## 2  2013 Nate  Alex   Katz 
+## 3  2014 Nate  Ian    Jack 
+## 4  2015 Chris Todd   Dave 
+## 5  2016 Nate  Jon    Katz 
+## 6  2017 Nate  Chris  Katz 
+## 7  2018 Dave  Jon    Chris
+## 8  2019 Dave  Jon    Todd</code></pre>
+<p>We need to take all the values (excluding years) and put them into a single column for easier counting. Imagine you had a piece of paper with all these values in a single list column. You could pick a name - we’ll use Dave - and go down your list and at the 12th entry you would see ‘Dave’ (that’s 1), then the 19th entry (that’s 2), then the 22nd entry (that’s 3) and so on.</p>
+<p>But you might have noticed a problem! How do you keep track of which entry was a first? Which was a second? And which was third? <code>pivot_longer()</code> addresses this by placing the variable names into a single column before the column that holds our values, ‘GM’.</p>
+<pre class="r"><code># takes the values from each column (first, second, third), but excludes year values
+# places all the values into a GM column
+#
+# variable names are placed into &#39;name&#39; column
+podium %&gt;%
+    pivot_longer(cols = -year, values_to = &#39;GM&#39;)</code></pre>
+<pre><code>## # A tibble: 24 x 3
+##     year name   GM   
+##    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;
+##  1  2012 first  Mik  
+##  2  2012 second Jon  
+##  3  2012 third  Katz 
+##  4  2013 first  Nate 
+##  5  2013 second Alex 
+##  6  2013 third  Katz 
+##  7  2014 first  Nate 
+##  8  2014 second Ian  
+##  9  2014 third  Jack 
+## 10  2015 first  Chris
+## # ... with 14 more rows</code></pre>
+<p>Remember, we are trying to count how many times each GM finishes in the Top 3 of our league. So this means we need to count values of <em>both</em> ‘name’ column &amp; ‘GM’ column. For example, we would be looking for things like:
+* <code>first - Nate</code> - 4x
+* <code>second - Jon</code> - 4x
+* <code>third - Katz</code> - 4x</p>
+<p>Because we need to count both ‘name’ &amp; ‘GM’ you see the line in the code below <code>count(name, GM)</code>.</p>
+<pre class="r"><code># takes the values from each column (first, second, third), but excludes year values
+# places all the values into a GM column
+#
+# count &#39;name&#39; &amp; &#39;GM&#39; values together
+podium %&gt;%
+    pivot_longer(cols = -year,
+                 values_to = &#39;GM&#39;) %&gt;%
+    count(name, GM)</code></pre>
+<pre><code>## # A tibble: 14 x 3
+##    name   GM        n
+##    &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;
+##  1 first  Chris     1
+##  2 first  Dave      2
+##  3 first  Mik       1
+##  4 first  Nate      4
+##  5 second Alex      1
+##  6 second Chris     1
+##  7 second Ian       1
+##  8 second Jon       4
+##  9 second Todd      1
+## 10 third  Chris     1
+## 11 third  Dave      1
+## 12 third  Jack      1
+## 13 third  Katz      4
+## 14 third  Todd      1</code></pre>
+<p>In our 8 seasons (2012-2019), we’ve had 4 GMs finish first, 5 GMs finish second, and 5 GMs finish third. This can be seen from the data above, but it would be easier to see <code>first</code>, <code>second</code>, and <code>third</code> as variables again like our original tibble, ‘podium’. For this we’ll have to use the <code>pivot_wider()</code> function.</p>
+</div>
+<div id="pivot-wider" class="section level3">
+<h3>Pivot Wider</h3>
+<p><code>pivot_wider()</code> basically does the inverse of <code>pivot_longer()</code>. We tell it which column to take variable <em>names from</em>, <code>name</code>. We tell it which column to take <em>values from</em>, <code>n</code>. We can fill in the empty values, NA, using <em>values fill</em>. We tell it to take all the empty values into a list, and fill that list with <code>n = 0</code>.</p>
+<pre class="r"><code>podium %&gt;%
+    pivot_longer(cols = -year,
+                 values_to = &#39;GM&#39;) %&gt;%
+    count(name, GM) %&gt;%
+    pivot_wider(names_from = name, values_from = n, values_fill = list(n = 0))</code></pre>
+<pre><code>## # A tibble: 10 x 4
+##    GM    first second third
+##    &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+##  1 Chris     1      1     1
+##  2 Dave      2      0     1
+##  3 Mik       1      0     0
+##  4 Nate      4      0     0
+##  5 Alex      0      1     0
+##  6 Ian       0      1     0
+##  7 Jon       0      4     0
+##  8 Todd      0      1     1
+##  9 Jack      0      0     1
+## 10 Katz      0      0     4</code></pre>
+<p>Notice that Brett &amp; Ashton are not on the tibble because they have yet to place in the Top 3.</p>
+</div>
 </div>
