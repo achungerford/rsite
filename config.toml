@@ -13,9 +13,9 @@ canonifyURLs = true
 
 [params]
   # Sets the meta tag description
-  description          = "HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo"
+  description          = "Personal website of Alexander C. Hungerford"
   # Sets the navbarTitle that appears in the top left of the navigation bar
-  navbarTitle          = "Future Imperfect"
+  navbarTitle          = "Alexander C. Hungerford"
   # Sets where "View More Posts" links
   viewMorePostLink     = "/blog/"
 
@@ -45,11 +45,11 @@ canonifyURLs = true
   # Sets specific share to appear on posts (default behavior is to appear)
   socialShareTwitter   = true
   socialShareGoogleplus = true
-  socialShareFacebook  = true
+  socialShareFacebook  = false
   socialShareReddit    = true
   socialShareLinkedin  = true
   socialShareStumbleupon = true
-  socialSharePinterest = true
+  socialSharePinterest = false
   socialShareEmail     = true
 
   # Load custom CSS or JavaScript files. The variable is an array so that you
@@ -152,46 +152,46 @@ canonifyURLs = true
 [social]
   # Coding Communities
   github           = "achungerford"
-  gitlab           = ""
-  stackoverflow    = "" # User Number
-  bitbucket        = ""
+  # gitlab           = ""
+  stackoverflow    = "6486215" # User Number
+  # bitbucket        = ""
   jsfiddle         = ""
-  codepen          = ""
+  codepen          = "achungerford"
   # Visual Art Communities
-  deviantart       = ""
-  flickr           = "example"
-  behance          = ""
-  dribbble         = ""
+  # deviantart       = ""
+  # flickr           = "example"
+  # behance          = ""
+  # dribbble         = ""
   # Publishing Communities
-  wordpress        = ""
-  medium           = ""
+  # wordpress        = ""
+  # medium           = ""
   # Professional/Business Oriented Communities
   linkedin         = "example"
-  linkedin_company = "examplebusiness"
-  foursquare       = ""
-  xing             = ""
-  slideshare       = ""
+  # linkedin_company = "examplebusiness"
+  # foursquare       = ""
+  # xing             = ""
+  # slideshare       = ""
   # Social Networks
-  facebook         = "example"
-  googleplus       = ""
-  reddit           = "example"
-  quora            = ""
+  # facebook         = "example"
+  # googleplus       = ""
+  # reddit           = "example"
+  # quora            = ""
   youtube          = ""
-  vimeo            = ""
-  whatsapp         = "" # WhatsApp Number
+  # vimeo            = ""
+  #whatsapp         = "" # WhatsApp Number
     # WeChat and QQ need testing.
-    wechat         = ""
-    qq             = "" # User ID Number
-  instagram        = "example"
-  tumblr           = ""
-  twitter          = "example"
-  skype            = ""
-  snapchat         = ""
-  pinterest        = "example"
-  telegram         = "example"
-  vine             = ""
-  googlescholar    = ""
-  orcid            = ""
-  researchgate     = "example"
+    # wechat         = ""
+    # qq             = "" # User ID Number
+  # instagram        = "example"
+  # tumblr           = ""
+  twitter          = "achungerford"
+  # skype            = ""
+  # snapchat         = ""
+  # pinterest        = "example"
+  # telegram         = "example"
+  # vine             = ""
+  # googlescholar    = ""
+  # orcid            = ""
+  # researchgate     = "example"
   # Email
   email            = "example"

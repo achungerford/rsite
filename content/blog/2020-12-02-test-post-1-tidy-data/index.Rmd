@@ -10,14 +10,15 @@ type: post
 ---
 
 **OBJECTIVE:** Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.
+
 * Add columns and change values with `mutate()`
 * Choose columns with `select()`
 * Choose rows with `filter()`
-* Manipulate data with `pivot_longer()`
+* Manipulate data with `pivot_longer()` & `pivot_wider()`
 
 ## Setup
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 ```
 
@@ -132,6 +133,7 @@ podium %>%
     pivot_longer(cols = -year, values_to = 'GM')
 ```
 Remember, we are trying to count how many times each GM finishes in the Top 3 of our league. So this means we need to count values of *both* 'name' column & 'GM' column. For example, we would be looking for things like:
+
 * `first - Nate` - 4x
 * `second - Jon` - 4x
 * `third - Katz` - 4x
