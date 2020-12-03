@@ -1,0 +1,83 @@
+---
+title: Test Post 1 - Tidy Data
+author: Alexander C. Hungerford
+date: '2020-12-02'
+slug: []
+categories:
+  - Tidy Data
+tags:
+  - HFFFL
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+type: post
+---
+
+#### Setup
+
+```{r}
+library(tidyverse)
+```
+
+### Initial Data
+
+```{r}
+# years league has been active
+year <- c(2012:2019)
+
+# podium placement
+first <- c("Mik", "Nate", "Nate", "Chris", "Nate", "Nate", "Dave", "Dave")
+second <- c("Jon", "Alex", "Ian", "Todd", "Jon", "Chris", "Jon", "Jon")
+third <- c("Katz", "Katz", "Jack", "Dave", "Katz", "Katz", "Chris", "Todd")
+```
+
+### Create Tibble
+
+```{r}
+podium <- tibble(year, first, second, third)
+
+# show data
+podium
+```
+
+### Add Variable (column)
+* `mutate()` - create, modify, & delete variables
+
+```{r}
+tbl <- podium %>% mutate(dues = 60, .after = "third")
+
+# show data
+tbl
+```
+
+### Subset Observations - rows
+* `filter()` - subset rows using column values
+
+```{r}
+# change dues in year 2018 & 2019 to value 70
+tbl[7:8, ] <-
+    tbl %>%
+    filter(year > 2017) %>%
+    mutate(dues = 70)
+
+# show replaced data
+tbl
+```
+
+
+### Subset Variables - columns
+* `select()` - subset columns using their name & type
+
+```{r}
+tbl %>% select(first, second, third)
+```
+
+### Select Variables, Filter Observations
+
+```{r}
+tbl %>% 
+    select(year, first, second, third) %>%
+    filter(year < 2016)
+```
