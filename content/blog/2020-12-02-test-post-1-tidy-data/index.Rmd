@@ -1,11 +1,12 @@
 ---
-title: 'Coluns & Rows: select, filter, mutate'
+title: 'Columns & Rows: select, filter, mutate'
 author: Alexander C. Hungerford
 date: '2020-12-02'
 categories:
   - Tidy Data
 tags:
   - HFFFL
+  - beginner
 type: post
 ---
 
@@ -18,7 +19,7 @@ type: post
 
 ## Setup
 
-```{r, message=FALSE, warning=FALSE}
+```{r, warning=FALSE, collapse=TRUE}
 library(tidyverse)
 ```
 
@@ -47,7 +48,6 @@ third <- c("Katz", "Katz", "Jack", "Dave", "Katz", "Katz", "Chris", "Todd")
 
 ```{r}
 podium <- tibble(year, first, second, third)
-# show data
 podium
 ```
 
@@ -59,7 +59,6 @@ From 2012 through 2016 our dues were $60 per GM per year.
 ```{r}
 # create a dues column, fill values with $60 USD
 tbl <- podium %>% mutate(dues = 60, .after = "third")
-# show data
 tbl
 ```
 
@@ -153,6 +152,7 @@ podium %>%
 In our 8 seasons (2012-2019), we've had 4 GMs finish first, 5 GMs finish second, and 5 GMs finish third. This can be seen from the data above, but it would be easier to see `first`, `second`, and `third` as variables again like our original tibble, 'podium'. For this we'll have to use the `pivot_wider()` function.
 
 ### Pivot Wider
+
 `pivot_wider()` basically does the inverse of `pivot_longer()`. We tell it which column to take variable *names from*, `name`. We tell it which column to take *values from*, `n`. We can fill in the empty values, NA, using *values fill*. We tell it to take all the empty values into a list, and fill that list with `n = 0`.
 
 ```{r}

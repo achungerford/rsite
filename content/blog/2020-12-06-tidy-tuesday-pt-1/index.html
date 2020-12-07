@@ -1,0 +1,78 @@
+---
+title: Tidy Tuesday pt 1
+author: Alexander C. Hungerford
+date: '2020-12-06'
+slug: []
+categories:
+  - Tidy Tuesday
+tags:
+  - dataViz
+  - ggplot2
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+type: post
+---
+
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="setup" class="section level3">
+<h3>Setup</h3>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.0</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div id="load-data" class="section level3">
+<h3>Load data</h3>
+<pre class="r"><code>mtcars_tbl &lt;- tibble(mtcars)
+mtcars_tbl</code></pre>
+<pre><code>## # A tibble: 32 x 11
+##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
+##  2  21       6  160    110  3.9   2.88  17.0     0     1     4     4
+##  3  22.8     4  108     93  3.85  2.32  18.6     1     1     4     1
+##  4  21.4     6  258    110  3.08  3.22  19.4     1     0     3     1
+##  5  18.7     8  360    175  3.15  3.44  17.0     0     0     3     2
+##  6  18.1     6  225    105  2.76  3.46  20.2     1     0     3     1
+##  7  14.3     8  360    245  3.21  3.57  15.8     0     0     3     4
+##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
+##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
+## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
+## # ... with 22 more rows</code></pre>
+<pre class="r"><code># basic scatterplot
+ggplot(mtcars_tbl, aes(x = cyl, y = mpg)) + geom_point()</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The x-axis is a discrete variable. The number of cylinders in a vehicle engine is always an integer (1, 2, 3…n). You will never have a car with 4.25 cylinders.</p>
+<p>As we can see, generally, vehicles with more cylinders get worse gas mileage.</p>
+</div>
+<div id="code-explained" class="section level3">
+<h3>Code Explained</h3>
+<p><code>ggplot()</code> calls the <strong>ggplot</strong> package and initializes a ggplot object. In the first argument you need to put the data you want to work from, <code>mtcars_tbl</code>. The second argument is the aesthetics layer. <code>aes(x = cyl, y = mpg)</code> can be written <code>aes(cyl, mpg)</code>. The x and y are understood implicitly, but for others reading your code it helps to be as explicit as possible.</p>
+<p>The final layer is the <strong>geom</strong> layer. This tells ggplot what type of plot to make. If you had <code>geom_bar</code> would make a bar plot. <code>geom_histogram</code> makes a histogram and so on.</p>
+</div>
+<div id="aesthetic-layer" class="section level3">
+<h3>Aesthetic Layer</h3>
+<p>Aesthetics describe how variables are mapped to visual properties. You can do very simple manipulations in the aesthetic layer, such as <code>log(mpg)</code>, but if you need to do anything complicated you should do another layer and <code>mutate()</code> the data.</p>
+<pre class="r"><code># mpg by weight, data color by cylinder
+ggplot(mtcars, aes(x = wt, y = mpg, color = cyl)) + geom_point()</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre class="r"><code># a simple manipulation of the data in the aes() layer with log(wt)
+ggplot(mtcars, aes(x = log(wt), y = mpg, color = cyl)) + geom_point()</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>You can also map aesthetics to functions of variables.</p>
+<pre class="r"><code># x-axis is horsepower per cylinder
+ggplot(mtcars, aes(x = hp/cyl, y = mpg, color = cyl)) + geom_point()</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>For most</p>
+</div>
