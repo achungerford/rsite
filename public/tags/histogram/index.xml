@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>histogram on Alexander C. Hungerford</title>
+    <link>/tags/histogram/</link>
+    <description>Recent content in histogram on Alexander C. Hungerford</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 03 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/histogram/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Create a Histogram in R with ggplot2</title>
+      <link>/blog/2020-12-03-create-a-histogram-in-r-with-ggplot2/</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2020-12-03-create-a-histogram-in-r-with-ggplot2/</guid>
+      <description>OBJECTIVE: Demonstrate the basics of visualizing data from my fantasy football league using the ggplot2 package from the Tidyverse.
+Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.1.2 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.0## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()Import Datagm &amp;lt;- c(&amp;quot;Alex&amp;quot;, &amp;quot;Ashton&amp;quot;, &amp;quot;Mik&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Brett&amp;quot;, &amp;quot;Ian&amp;quot;, &amp;quot;Jack&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Todd&amp;quot;, &amp;quot;Nate&amp;quot;)# years league has been activeyear &amp;lt;- c(2012:2019)# podium placement in order by yearfirst &amp;lt;- c(&amp;quot;Mik&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Dave&amp;quot;)second &amp;lt;- c(&amp;quot;Jon&amp;quot;, &amp;quot;Alex&amp;quot;, &amp;quot;Ian&amp;quot;, &amp;quot;Todd&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Jon&amp;quot;)third &amp;lt;- c(&amp;quot;Katz&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Jack&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Todd&amp;quot;)podium &amp;lt;- tibble(year, first, second, third)# count Top 3 finishes by GMspodium_count &amp;lt;- podium %&amp;gt;%pivot_longer(cols = -year,values_to = &amp;#39;GM&amp;#39;) %&amp;gt;%count(name, GM) %&amp;gt;%pivot_wider(names_from = name, values_from = n, values_fill = list(n = 0))podium_count## # A tibble: 10 x 4## GM first second third## &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;## 1 Chris 1 1 1## 2 Dave 2 0 1## 3 Mik 1 0 0## 4 Nate 4 0 0## 5 Alex 0 1 0## 6 Ian 0 1 0## 7 Jon 0 4 0## 8 Todd 0 1 1## 9 Jack 0 0 1## 10 Katz 0 0 4ggplot(podium_count, aes(x = GM)) + geom_bar()</description>
+    </item>
+    
+  </channel>
+</rss>

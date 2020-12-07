@@ -1,0 +1,61 @@
+---
+title: Create a Histogram in R with ggplot2
+author: Alexander C. Hungerford
+date: '2020-12-03'
+slug: []
+categories:
+  - ggplot2
+tags:
+  - basics
+  - histogram
+  - HFFFL
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+type: post
+---
+
+**OBJECTIVE:** Demonstrate the basics of visualizing data from my fantasy football league using the ggplot2 package from the Tidyverse.
+
+### Setup
+
+```{r}
+library(tidyverse)
+```
+
+## Import Data
+```{r}
+gm <- c("Alex", "Ashton", "Mik", "Katz", "Dave", "Brett", "Ian", "Jack", "Jon", "Chris", "Todd", "Nate")
+
+# years league has been active
+year <- c(2012:2019)
+
+# podium placement in order by year
+first <- c("Mik", "Nate", "Nate", "Chris", "Nate", "Nate", "Dave", "Dave")
+second <- c("Jon", "Alex", "Ian", "Todd", "Jon", "Chris", "Jon", "Jon")
+third <- c("Katz", "Katz", "Jack", "Dave", "Katz", "Katz", "Chris", "Todd")
+
+podium <- tibble(year, first, second, third)
+```
+
+
+```{r}
+# count Top 3 finishes by GMs
+podium_count <- 
+    podium %>%
+    pivot_longer(cols = -year,
+                 values_to = 'GM') %>%
+    count(name, GM) %>%
+    pivot_wider(names_from = name, values_from = n, values_fill = list(n = 0))
+
+podium_count
+```
+
+
+
+```{r}
+ggplot(podium_count, aes(x = GM)) + geom_bar()
+```
+

@@ -1,42 +1,618 @@
----
-title: Test Post 1 - Tidy Data
-author: Alexander C. Hungerford
-date: '2020-12-02'
-slug: []
-categories:
-  - Tidy Data
-tags:
-  - HFFFL
-description: ''
-featured: ''
-featuredalt: ''
-featuredpath: ''
-linktitle: ''
-type: post
----
+<!DOCTYPE HTML>
 
+<html>
+    <head>
+        <script type="application/ld+json">
+    {
+        "@context" : "http://schema.org",
+        "@type" : "BlogPosting",
+        "mainEntityOfPage": {
+             "@type": "WebPage",
+             "@id": "\/"
+        },
+        "articleSection" : "blog",
+        "name" : "Columns \u0026 Rows: select, filter, mutate",
+        "headline" : "Columns \u0026 Rows: select, filter, mutate",
+        "description" : "OBJECTIVE: Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.\n\rAdd columns and change values with mutate()\rChoose columns with select()\rChoose rows with filter()\rManipulate data with pivot_longer() \u0026amp; pivot_wider()\r\rSetup\rlibrary(tidyverse)\r## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --\r## v ggplot2 3.3.2 v purrr 0.3.4\r## v tibble 3.0.4 v dplyr 1.0.2\r## v tidyr 1.",
+        "inLanguage" : "en",
+        "author" : "",
+        "creator" : "",
+        "publisher": "",
+        "accountablePerson" : "",
+        "copyrightHolder" : "",
+        "copyrightYear" : "2020",
+        "datePublished": "2020-12-02 00:00:00 \u002b0000 UTC",
+        "dateModified" : "2020-12-02 00:00:00 \u002b0000 UTC",
+        "url" : "\/blog\/2020-12-02-test-post-1-tidy-data\/",
+        "wordCount" : "1565",
+        "keywords" : [ "HFFFL","beginner","Blog" ]
+    }
+    </script>
+        
+            
+                <title>Columns &amp; Rows: select, filter, mutate</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.79.0" />
+        
+
+
+        
+            <meta name="author" content="Alexander C. Hungerford">
+        
+        
+            
+                <meta name="description" content="Personal website of Alexander C. Hungerford">
+            
+        
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Columns &amp; Rows: select, filter, mutate"/>
+<meta name="twitter:description" content="OBJECTIVE: Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.
+Add columns and change values with mutate()Choose columns with select()Choose rows with filter()Manipulate data with pivot_longer() &amp; pivot_wider()Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1."/>
+<meta name="twitter:site" content="@achungerford"/>
+
+        <meta property="og:title" content="Columns &amp; Rows: select, filter, mutate" />
+<meta property="og:description" content="OBJECTIVE: Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.
+Add columns and change values with mutate()Choose columns with select()Choose rows with filter()Manipulate data with pivot_longer() &amp; pivot_wider()Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/blog/2020-12-02-test-post-1-tidy-data/" />
+<meta property="article:published_time" content="2020-12-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-02T00:00:00+00:00" />
+
+        <meta property="og:image" content="//images/logo.png">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="512">
+        <meta property="og:image:height" content="512">
+        <meta itemprop="name" content="Columns &amp; Rows: select, filter, mutate">
+<meta itemprop="description" content="OBJECTIVE: Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.
+Add columns and change values with mutate()Choose columns with select()Choose rows with filter()Manipulate data with pivot_longer() &amp; pivot_wider()Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.">
+<meta itemprop="datePublished" content="2020-12-02T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2020-12-02T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1565">
+
+
+
+<meta itemprop="keywords" content="HFFFL,beginner," />
+
+        
+
+        
+            
+        
+
+        
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,800,900|Source+Sans+Pro:400,700">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.css">
+            <link rel="stylesheet" href="/css/main.css">
+            <link rel="stylesheet" href="/css/add-on.css">
+            <link rel="stylesheet" href="/css/academicons.min.css">
+        
+
+        
+            
+                
+            
+        
+
+
+  
+    
+    <link href='//cdn.bootcss.com/highlight.js/9.11.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+  
+
+
+      
+    </head>
+    <body>
+
+      
+      <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+      <h1><a href="/">blog</a></h1>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/">
+                            <i class="fa fa-home">&nbsp;</i>Home
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                            <i class="fa fa-id-card-o">&nbsp;</i>About
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/blog/">
+                            <i class="fa fa-newspaper-o">&nbsp;</i>Blog
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/itemized/">
+                            <i class="fa fa-list">&nbsp;</i>Itemized
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                            <i class="fa fa-sitemap">&nbsp;</i>Categories
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/contact/">
+                            <i class="fa fa-envelope-o">&nbsp;</i>Contact
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="as_sitesearch" value="/">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="as_sitesearch" value="/">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/">
+                            <h3>
+                                <i class="fa fa-home">&nbsp;</i>Home
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                <i class="fa fa-id-card-o">&nbsp;</i>About
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/blog/">
+                            <h3>
+                                <i class="fa fa-newspaper-o">&nbsp;</i>Blog
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/itemized/">
+                            <h3>
+                                <i class="fa fa-list">&nbsp;</i>Itemized
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                <i class="fa fa-sitemap">&nbsp;</i>Categories
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/contact/">
+                            <h3>
+                                <i class="fa fa-envelope-o">&nbsp;</i>Contact
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section class="recent-posts">
+            <div class="mini-posts">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+
+                
+                    
+                
+
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/blog/2020-12-06-tidy-tuesday-pt-1/">Tidy Tuesday pt 1</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2020-12-06'>
+                                    December 6, 2020</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/blog/2020-12-03-create-a-histogram-in-r-with-ggplot2/">Create a Histogram in R with ggplot2</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2020-12-03'>
+                                    December 3, 2020</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/blog/2020-12-02-test-post-1-tidy-data/">Columns &amp; Rows: select, filter, mutate</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2020-12-02'>
+                                    December 2, 2020</time>
+                            </header>
+                            
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/blog/creating-a-new-theme/">Creating a New Theme</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2014-09-28'>
+                                    September 28, 2014</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+        
+        
+        
+
+        <a href="/blog/creating-a-new-theme/" class="image featured">
+            <img src="/img/2014/09/pic03.jpg" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+                        <article class="mini-post">
+                            <header>
+                                <h3><a href="/blog/goisforlovers/">(Hu)go Template Primer</a></h3>
+                                
+                                <time class="published" datetime=
+                                    '2014-04-02'>
+                                    April 2, 2014</time>
+                            </header>
+                            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+        
+        
+        
+
+        <a href="/blog/goisforlovers/" class="image featured">
+            <img src="/img/2014/04/pic02.jpg" alt="">
+        </a>
+    
+
+
+                        </article>
+                
+
+                
+                    <a href=
+                        
+                            /blog/
+                        
+                        class="button">View more posts</a>
+                
+            </div>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+
+<li>
+  <a href="//twitter.com/share?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;text=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate&amp;via=achungerford" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+    </a>
+</li>
+
+
+
+
+<li>
+  <a href="//plus.google.com/share?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+  </a>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a href="//reddit.com/submit?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;title=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+  </a>
+</li>
+
+
+
+
+<li>
+  <a href="//www.linkedin.com/shareArticle?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;title=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate" target="_blank" class="share-btn linkedin">
+      <i class="fa fa-linkedin"></i>
+      <p>LinkedIn</p>
+    </a>
+</li>
+
+
+
+
+<li>
+  <a href="//www.stumbleupon.com/submit?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;title=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+  </a>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a href="mailto:?subject=Check out this post by Alexander%20C.%20Hungerford&amp;body=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+  </a>
+</li>
+
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+  <header>
+    <div class="title">
+        
+            <h1><a href="/blog/2020-12-02-test-post-1-tidy-data/">Columns &amp; Rows: select, filter, mutate</a></h1>
+            
+        
+        
+    </div>
+    <div class="meta">
+        
+
+        <time class="published"
+            datetime='2020-12-02'>
+            December 2, 2020</time>
+        <span class="author">Alexander C. Hungerford</span>
+        
+            <p>8 minute read</p>
+        
+        
+    </div>
+</header>
+
+
+  
+    <section id="social-share">
+      <ul class="icons">
+        
+
+
+
+<li>
+  <a href="//twitter.com/share?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;text=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate&amp;via=achungerford" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+    </a>
+</li>
+
+
+
+
+<li>
+  <a href="//plus.google.com/share?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+  </a>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a href="//reddit.com/submit?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;title=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+  </a>
+</li>
+
+
+
+
+<li>
+  <a href="//www.linkedin.com/shareArticle?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;title=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate" target="_blank" class="share-btn linkedin">
+      <i class="fa fa-linkedin"></i>
+      <p>LinkedIn</p>
+    </a>
+</li>
+
+
+
+
+<li>
+  <a href="//www.stumbleupon.com/submit?url=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f&amp;title=Columns%20%26%20Rows%3a%20select%2c%20filter%2c%20mutate" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+  </a>
+</li>
+
+
+
+
+
+
+
+<li>
+  <a href="mailto:?subject=Check out this post by Alexander%20C.%20Hungerford&amp;body=%2fblog%2f2020-12-02-test-post-1-tidy-data%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+  </a>
+</li>
+
+
+      </ul>
+    </section>
+  
+
+  
+
+  <div id="content">
+    
 <link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
 <script src="index_files/anchor-sections/anchor-sections.js"></script>
 
 
-<div id="setup" class="section level4">
-<h4>Setup</h4>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
-<pre><code>## v ggplot2 3.3.2     v purrr   0.3.4
+<p><strong>OBJECTIVE:</strong> Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.</p>
+<ul>
+<li>Add columns and change values with <code>mutate()</code></li>
+<li>Choose columns with <code>select()</code></li>
+<li>Choose rows with <code>filter()</code></li>
+<li>Manipulate data with <code>pivot_longer()</code> &amp; <code>pivot_wider()</code></li>
+</ul>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<pre class="r"><code>library(tidyverse)
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+## v ggplot2 3.3.2     v purrr   0.3.4
 ## v tibble  3.0.4     v dplyr   1.0.2
 ## v tidyr   1.1.2     v stringr 1.4.0
-## v readr   1.4.0     v forcats 0.5.0</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## v readr   1.4.0     v forcats 0.5.0
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 </div>
-<div id="initial-data" class="section level3">
-<h3>Initial Data</h3>
-<pre class="r"><code># years league has been active
+<div id="create-data" class="section level1">
+<h1>Create Data</h1>
+<div id="lists" class="section level3">
+<h3>Lists</h3>
+<p>Our fantasy football league started in 2012. We have 12 participants that we refer to as general managers (GMs). The league, HFFFL, started in 20012.</p>
+<pre class="r"><code>gm &lt;- c(&quot;Alex&quot;, &quot;Ashton&quot;, &quot;Mik&quot;, &quot;Katz&quot;, &quot;Dave&quot;, &quot;Brett&quot;, &quot;Ian&quot;, &quot;Jack&quot;, &quot;Jon&quot;, &quot;Chris&quot;, &quot;Todd&quot;, &quot;Nate&quot;)
+# alphabetized
+gm &lt;- sort(gm)
+
+# years league has been active
 year &lt;- c(2012:2019)
 
-# podium placement
+# podium placement in order by year
 first &lt;- c(&quot;Mik&quot;, &quot;Nate&quot;, &quot;Nate&quot;, &quot;Chris&quot;, &quot;Nate&quot;, &quot;Nate&quot;, &quot;Dave&quot;, &quot;Dave&quot;)
 second &lt;- c(&quot;Jon&quot;, &quot;Alex&quot;, &quot;Ian&quot;, &quot;Todd&quot;, &quot;Jon&quot;, &quot;Chris&quot;, &quot;Jon&quot;, &quot;Jon&quot;)
 third &lt;- c(&quot;Katz&quot;, &quot;Katz&quot;, &quot;Jack&quot;, &quot;Dave&quot;, &quot;Katz&quot;, &quot;Katz&quot;, &quot;Chris&quot;, &quot;Todd&quot;)</code></pre>
@@ -44,8 +620,6 @@ third &lt;- c(&quot;Katz&quot;, &quot;Katz&quot;, &quot;Jack&quot;, &quot;Dave&q
 <div id="create-tibble" class="section level3">
 <h3>Create Tibble</h3>
 <pre class="r"><code>podium &lt;- tibble(year, first, second, third)
-
-# show data
 podium</code></pre>
 <pre><code>## # A tibble: 8 x 4
 ##    year first second third
@@ -59,14 +633,14 @@ podium</code></pre>
 ## 7  2018 Dave  Jon    Chris
 ## 8  2019 Dave  Jon    Todd</code></pre>
 </div>
-<div id="add-variable-column" class="section level3">
-<h3>Add Variable (column)</h3>
+<div id="add-column-variable" class="section level3">
+<h3>Add Column (variable)</h3>
 <ul>
 <li><code>mutate()</code> - create, modify, &amp; delete variables</li>
 </ul>
-<pre class="r"><code>tbl &lt;- podium %&gt;% mutate(dues = 60, .after = &quot;third&quot;)
-
-# show data
+<p>From 2012 through 2016 our dues were $60 per GM per year.</p>
+<pre class="r"><code># create a dues column, fill values with $60 USD
+tbl &lt;- podium %&gt;% mutate(dues = 60, .after = &quot;third&quot;)
 tbl</code></pre>
 <pre><code>## # A tibble: 8 x 5
 ##    year first second third  dues
@@ -80,18 +654,35 @@ tbl</code></pre>
 ## 7  2018 Dave  Jon    Chris    60
 ## 8  2019 Dave  Jon    Todd     60</code></pre>
 </div>
-<div id="subset-observations---rows" class="section level3">
-<h3>Subset Observations - rows</h3>
+<div id="filter-rows-observations" class="section level3">
+<h3>Filter Rows (observations)</h3>
 <ul>
 <li><code>filter()</code> - subset rows using column values</li>
 </ul>
-<pre class="r"><code># change dues in year 2018 &amp; 2019 to value 70
+<p>Since 2018, our dues were increased to $70 per year. We need to adjust those values</p>
+<pre class="r"><code># filter the observations we need
+tbl %&gt;%
+    filter(year &gt; 2017)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##    year first second third  dues
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1  2018 Dave  Jon    Chris    60
+## 2  2019 Dave  Jon    Todd     60</code></pre>
+<pre class="r"><code># change the dues from 60 to 70
+tbl %&gt;%
+    filter(year &gt; 2017) %&gt;%
+    mutate(dues = 70)</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##    year first second third  dues
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+## 1  2018 Dave  Jon    Chris    70
+## 2  2019 Dave  Jon    Todd     70</code></pre>
+<pre class="r"><code># assign the new rows to replace bottom two rows of our tibble
 tbl[7:8, ] &lt;-
     tbl %&gt;%
     filter(year &gt; 2017) %&gt;%
     mutate(dues = 70)
-
-# show replaced data
+# show data
 tbl</code></pre>
 <pre><code>## # A tibble: 8 x 5
 ##    year first second third  dues
@@ -105,26 +696,26 @@ tbl</code></pre>
 ## 7  2018 Dave  Jon    Chris    70
 ## 8  2019 Dave  Jon    Todd     70</code></pre>
 </div>
-<div id="subset-variables---columns" class="section level3">
-<h3>Subset Variables - columns</h3>
+<div id="select-columns-variables" class="section level3">
+<h3>Select Columns (variables)</h3>
 <ul>
 <li><code>select()</code> - subset columns using their name &amp; type</li>
 </ul>
-<pre class="r"><code>tbl %&gt;% select(first, second, third)</code></pre>
-<pre><code>## # A tibble: 8 x 3
-##   first second third
-##   &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
-## 1 Mik   Jon    Katz 
-## 2 Nate  Alex   Katz 
-## 3 Nate  Ian    Jack 
-## 4 Chris Todd   Dave 
-## 5 Nate  Jon    Katz 
-## 6 Nate  Chris  Katz 
-## 7 Dave  Jon    Chris
-## 8 Dave  Jon    Todd</code></pre>
+<pre class="r"><code>tbl %&gt;% select(first, third)</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   first third
+##   &lt;chr&gt; &lt;chr&gt;
+## 1 Mik   Katz 
+## 2 Nate  Katz 
+## 3 Nate  Jack 
+## 4 Chris Dave 
+## 5 Nate  Katz 
+## 6 Nate  Katz 
+## 7 Dave  Chris
+## 8 Dave  Todd</code></pre>
 </div>
 <div id="select-variables-filter-observations" class="section level3">
-<h3>Select Variables, Filter Observations</h3>
+<h3>Select Variables &amp; Filter Observations</h3>
 <pre class="r"><code>tbl %&gt;% 
     select(year, first, second, third) %&gt;%
     filter(year &lt; 2016)</code></pre>
@@ -136,3 +727,710 @@ tbl</code></pre>
 ## 3  2014 Nate  Ian    Jack 
 ## 4  2015 Chris Todd   Dave</code></pre>
 </div>
+<div id="pivot-longer" class="section level3">
+<h3>Pivot Longer</h3>
+<ul>
+<li><code>pivot_longer()</code></li>
+</ul>
+<p>The Tidyr package reference to <code>pivot_longer()</code> isn’t helpful. The first line describes the function as<br><code>pivot_longer()</code> “lengthens” data, increasing the number of rows and decreasing the number of columns.<br>That tells you nothing about <em>how it works</em>.</p>
+<p>Let’s explore with some data. Our goal here is to count the number of times each GM has placed first, second, or third. Because this dataset is so small you could simply use a pen and paper to tally up the counts. But that won’t work with large data sets and this is one instance where <code>pivot_longer()</code> is useful.</p>
+<p>Recall the ‘podium’ tibble.</p>
+<pre class="r"><code>podium</code></pre>
+<pre><code>## # A tibble: 8 x 4
+##    year first second third
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+## 1  2012 Mik   Jon    Katz 
+## 2  2013 Nate  Alex   Katz 
+## 3  2014 Nate  Ian    Jack 
+## 4  2015 Chris Todd   Dave 
+## 5  2016 Nate  Jon    Katz 
+## 6  2017 Nate  Chris  Katz 
+## 7  2018 Dave  Jon    Chris
+## 8  2019 Dave  Jon    Todd</code></pre>
+<p>We need to take all the values (excluding years) and put them into a single column for easier counting. Imagine you had a piece of paper with all these values in a single list column. You could pick a name - we’ll use Dave - and go down your list and at the 12th entry you would see ‘Dave’ (that’s 1), then the 19th entry (that’s 2), then the 22nd entry (that’s 3) and so on.</p>
+<p>But you might have noticed a problem! How do you keep track of which entry was a first? Which was a second? And which was third? <code>pivot_longer()</code> addresses this by placing the variable names into a single column before the column that holds our values, ‘GM’.</p>
+<pre class="r"><code># takes the values from each column (first, second, third), but excludes year values
+# places all the values into a GM column
+#
+# variable names are placed into &#39;name&#39; column
+podium %&gt;%
+    pivot_longer(cols = -year, values_to = &#39;GM&#39;)</code></pre>
+<pre><code>## # A tibble: 24 x 3
+##     year name   GM   
+##    &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;
+##  1  2012 first  Mik  
+##  2  2012 second Jon  
+##  3  2012 third  Katz 
+##  4  2013 first  Nate 
+##  5  2013 second Alex 
+##  6  2013 third  Katz 
+##  7  2014 first  Nate 
+##  8  2014 second Ian  
+##  9  2014 third  Jack 
+## 10  2015 first  Chris
+## # ... with 14 more rows</code></pre>
+<p>Remember, we are trying to count how many times each GM finishes in the Top 3 of our league. So this means we need to count values of <em>both</em> ‘name’ column &amp; ‘GM’ column. For example, we would be looking for things like:</p>
+<ul>
+<li><code>first - Nate</code> - 4x</li>
+<li><code>second - Jon</code> - 4x</li>
+<li><code>third - Katz</code> - 4x</li>
+</ul>
+<p>Because we need to count both ‘name’ &amp; ‘GM’ you see the line in the code below <code>count(name, GM)</code>.</p>
+<pre class="r"><code># takes the values from each column (first, second, third), but excludes year values
+# places all the values into a GM column
+#
+# count &#39;name&#39; &amp; &#39;GM&#39; values together
+podium %&gt;%
+    pivot_longer(cols = -year,
+                 values_to = &#39;GM&#39;) %&gt;%
+    count(name, GM)</code></pre>
+<pre><code>## # A tibble: 14 x 3
+##    name   GM        n
+##    &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;
+##  1 first  Chris     1
+##  2 first  Dave      2
+##  3 first  Mik       1
+##  4 first  Nate      4
+##  5 second Alex      1
+##  6 second Chris     1
+##  7 second Ian       1
+##  8 second Jon       4
+##  9 second Todd      1
+## 10 third  Chris     1
+## 11 third  Dave      1
+## 12 third  Jack      1
+## 13 third  Katz      4
+## 14 third  Todd      1</code></pre>
+<p>In our 8 seasons (2012-2019), we’ve had 4 GMs finish first, 5 GMs finish second, and 5 GMs finish third. This can be seen from the data above, but it would be easier to see <code>first</code>, <code>second</code>, and <code>third</code> as variables again like our original tibble, ‘podium’. For this we’ll have to use the <code>pivot_wider()</code> function.</p>
+</div>
+<div id="pivot-wider" class="section level3">
+<h3>Pivot Wider</h3>
+<p><code>pivot_wider()</code> basically does the inverse of <code>pivot_longer()</code>. We tell it which column to take variable <em>names from</em>, <code>name</code>. We tell it which column to take <em>values from</em>, <code>n</code>. We can fill in the empty values, NA, using <em>values fill</em>. We tell it to take all the empty values into a list, and fill that list with <code>n = 0</code>.</p>
+<pre class="r"><code>podium %&gt;%
+    pivot_longer(cols = -year,
+                 values_to = &#39;GM&#39;) %&gt;%
+    count(name, GM) %&gt;%
+    pivot_wider(names_from = name, values_from = n, values_fill = list(n = 0))</code></pre>
+<pre><code>## # A tibble: 10 x 4
+##    GM    first second third
+##    &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt;
+##  1 Chris     1      1     1
+##  2 Dave      2      0     1
+##  3 Mik       1      0     0
+##  4 Nate      4      0     0
+##  5 Alex      0      1     0
+##  6 Ian       0      1     0
+##  7 Jon       0      4     0
+##  8 Todd      0      1     1
+##  9 Jack      0      0     1
+## 10 Katz      0      0     4</code></pre>
+<p>Notice that Brett &amp; Ashton are not on the tibble because they have yet to place in the Top 3.</p>
+</div>
+</div>
+
+  </div>
+
+  <footer>
+    <ul class="stats">
+  <li class="categories">
+    <ul>
+        
+            
+            
+                <i class="fa fa-folder"></i>
+                
+                
+                <li><a class="article-category-link" href="/categories/tidy-data">Tidy Data</a></li>
+                
+            
+        
+    </ul>
+  </li>
+  <li class="tags">
+    <ul>
+        
+            
+            
+                <i class="fa fa-tags"></i>
+                
+                
+                <li><a class="article-category-link" href="/tags/hfffl">HFFFL</a></li>
+                
+                
+                <li><a class="article-category-link" href="/tags/beginner">beginner</a></li>
+                
+            
+        
+    </ul>
+  </li>
+</ul>
+
+  </footer>
+
+</article>
+
+    <article class="post">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "shortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </article>
+
+
+<ul class="actions pagination">
+    
+        <li><a href="/blog/creating-a-new-theme/"
+                class="button big previous">Creating a New Theme</a></li>
+    
+
+    
+        <li><a href="/blog/2020-12-03-create-a-histogram-in-r-with-ggplot2/"
+                class="button big next">Create a Histogram in R with ggplot2</a></li>
+    
+</ul>
+
+
+    </div>
+    
+<section id="sidebar">
+
+  
+  <section id="intro">
+    
+    
+      
+        <a href='/' class="logo"><img src="/img/main/logo.jpg" alt="Hugo Future Imperfect" /></a>
+      
+    
+    
+      <header>
+        <h2>Alexander C. Hungerford</h2>
+        <p>A personal site about R</p>
+      </header>
+    
+    
+      <ul class="icons">
+        
+          
+    <li><a href="/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a></li>
+
+
+        
+        
+  <li><a href="//github.com/achungerford" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+  <li><a href="//stackoverflow.com/users/6486215" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+  <li><a href="//codepen.io/achungerford" target="_blank" title="CodePen" class="fa fa-codepen"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//linkedin.com/in/example" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//twitter.com/achungerford" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="mailto:example" title="Email" class="fa fa-envelope"></a></li>
+
+
+      </ul>
+    
+  </section>
+
+  
+  <section class="recent-posts">
+    <div class="mini-posts">
+      <header>
+        <h3>Recent Posts</h3>
+      </header>
+      <div class="posts-container">
+        
+
+        
+          
+        
+
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/blog/2020-12-06-tidy-tuesday-pt-1/">Tidy Tuesday pt 1</a>
+              </h3>
+              
+              <time class="published" datetime='2020-12-06'>
+                December 6, 2020
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/blog/2020-12-03-create-a-histogram-in-r-with-ggplot2/">Create a Histogram in R with ggplot2</a>
+              </h3>
+              
+              <time class="published" datetime='2020-12-03'>
+                December 3, 2020
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/blog/2020-12-02-test-post-1-tidy-data/">Columns &amp; Rows: select, filter, mutate</a>
+              </h3>
+              
+              <time class="published" datetime='2020-12-02'>
+                December 2, 2020
+              </time>
+            </header>
+            
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/blog/creating-a-new-theme/">Creating a New Theme</a>
+              </h3>
+              
+              <time class="published" datetime='2014-09-28'>
+                September 28, 2014
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+        
+        
+        
+
+        <a href="/blog/creating-a-new-theme/" class="image featured">
+            <img src="/img/2014/09/pic03.jpg" alt="">
+        </a>
+    
+
+
+          </article>
+        
+          <article class="mini-post">
+            <header>
+              <h3>
+                <a href="/blog/goisforlovers/">(Hu)go Template Primer</a>
+              </h3>
+              
+              <time class="published" datetime='2014-04-02'>
+                April 2, 2014
+              </time>
+            </header>
+            
+    
+
+    
+        
+        
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+        
+        
+        
+
+        <a href="/blog/goisforlovers/" class="image featured">
+            <img src="/img/2014/04/pic02.jpg" alt="">
+        </a>
+    
+
+
+          </article>
+        
+      </div>
+
+      
+        <a href=
+          
+            /blog/
+          
+        class="button">View more posts</a>
+      
+    </div>
+  </section>
+
+  
+  
+  
+  
+  
+    <section id="categories">
+      <header>
+        <h3>
+          <a href="/categories/">Categories</a>
+        </h3>
+      </header>
+        
+          
+        
+
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/hugo/">hugo</a>
+                <span style="float:right;">3</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/ggplot2/">ggplot2</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/go/">go</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/jekyll/">jekyll</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/tidy-data/">tidy-data</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+        <p>
+          <article>
+            <header>
+              
+                <a href="/categories/tidy-tuesday/">tidy-tuesday</a>
+                <span style="float:right;">1</span>
+              
+            </header>
+          </article>
+        </p>
+        
+    </section>
+  
+  
+
+  
+  
+    <section id="mini-bio">
+      <h3>About</h3>
+      <p>2009 B.A. Political Science<br>UC Santa Barbara<br></p>
+      <a href="/about/" class="button">Learn More</a>
+    </section>
+  
+
+  
+  <section id="footer">
+    
+      <ul class="icons">
+        
+          
+    <li><a href="/index.xml" type="application/rss+xml" target="_blank" title="RSS" class="fa fa-rss"></a></li>
+
+
+        
+        
+  <li><a href="//github.com/achungerford" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+  <li><a href="//stackoverflow.com/users/6486215" target="_blank" title="Stack Overflow" class="fa fa-stack-overflow"></a></li>
+
+
+
+
+
+
+
+  <li><a href="//codepen.io/achungerford" target="_blank" title="CodePen" class="fa fa-codepen"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//linkedin.com/in/example" target="_blank" title="LinkedIn" class="fa fa-linkedin"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="//twitter.com/achungerford" target="_blank" title="Twitter" class="fa fa-twitter"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li><a href="mailto:example" title="Email" class="fa fa-envelope"></a></li>
+
+
+      </ul>
+    
+    <p class="copyright">
+      
+        &copy; 2020
+        
+          Alexander C. Hungerford
+        
+      .
+      Powered by <a href="//gohugo.io" target="_blank">Hugo</a>
+    </p>
+  </section>
+</section>
+
+    </div>
+    <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+    
+
+    
+      
+    
+
+    
+      
+      
+      
+        <script src="//cdn.bootcss.com/highlight.js/9.11.0/highlight.min.js"></script>
+        
+        
+        
+        <script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/r.min.js"></script>
+        <script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/yaml.min.js"></script>
+        <script src="//cdn.bootcss.com/highlight.js/9.11.0/languages/css.min.js"></script>
+        <script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+      
+    
+    
+    
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/skel/3.0.1/skel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.25/jquery.fancybox.min.js"></script>
+      <script src="/js/util.js"></script>
+      <script src="/js/main.js"></script>
+      <script src="/js/backToTop.js"></script>
+    
+
+    
+      
+        
+      
+    
+
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+      <script src="//yihui.name/js/math-code.js"></script>
+<script async
+src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+  </body>
+</html>
+

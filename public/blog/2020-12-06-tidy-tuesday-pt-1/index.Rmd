@@ -1,0 +1,80 @@
+---
+title: Tidy Tuesday pt 1
+author: Alexander C. Hungerford
+date: '2020-12-06'
+slug: []
+categories:
+  - Tidy Tuesday
+tags:
+  - dataViz
+  - ggplot2
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+type: post
+---
+
+
+### Setup
+
+```{r}
+library(tidyverse)
+```
+
+### Load data
+
+```{r}
+mtcars_tbl <- tibble(mtcars)
+mtcars_tbl
+```
+
+```{r}
+# basic scatterplot
+ggplot(mtcars_tbl, aes(x = cyl, y = mpg)) + geom_point()
+```
+
+The x-axis is a discrete variable. The number of cylinders in a vehicle engine is always an integer (1, 2, 3...n). You will never have a car with 4.25 cylinders.
+
+As we can see, generally, vehicles with more cylinders get worse gas mileage.
+
+### Code Explained
+
+```{r, include=FALSE}
+# basic scatterplot
+ggplot(mtcars_tbl, aes(x = cyl, y = mpg)) + geom_point()
+```
+
+`ggplot()` calls the **ggplot** package and initializes a ggplot object. In the first argument you need to put the data you want to work from, `mtcars_tbl`. The second argument is the aesthetics layer. `aes(x = cyl, y = mpg)` can be written `aes(cyl, mpg)`. The x and y are understood implicitly, but for others reading your code it helps to be as explicit as possible.
+
+The final layer is the **geom** layer. This tells ggplot what type of plot to make. If you had `geom_bar` would make a bar plot. `geom_histogram` makes a histogram and so on.
+
+```{r, include=FALSE}
+# this would produce a plot identical to the scatterplot above
+# but it is less explicit and more difficult for others to understand your code
+ggplot(mtcars_tbl, aes(cyl, mpg)) + geom_point()
+```
+
+### Aesthetic Layer
+
+Aesthetics describe how variables are mapped to visual properties. You can do very simple manipulations in the aesthetic layer, such as `log(mpg)`, but if you need to do anything complicated you should do another layer and `mutate()` the data.
+
+```{r}
+# mpg by weight, data color by cylinder
+ggplot(mtcars, aes(x = wt, y = mpg, color = cyl)) + geom_point()
+```
+
+```{r}
+# a simple manipulation of the data in the aes() layer with log(wt)
+ggplot(mtcars, aes(x = log(wt), y = mpg, color = cyl)) + geom_point()
+```
+
+You can also map aesthetics to functions of variables.
+
+```{r}
+# x-axis is horsepower per cylinder
+ggplot(mtcars, aes(x = hp/cyl, y = mpg, color = cyl)) + geom_point()
+```
+
+For most 

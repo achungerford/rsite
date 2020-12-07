@@ -1,18 +1,63 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Hugo Future Imperfect</title>
+    <title>Tags on Alexander C. Hungerford</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on Hugo Future Imperfect</description>
+    <description>Recent content in Tags on Alexander C. Hungerford</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>dataViz</title>
+      <link>/tags/dataviz/</link>
+      <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/dataviz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ggplot2</title>
+      <link>/tags/ggplot2/</link>
+      <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/ggplot2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>basics</title>
+      <link>/tags/basics/</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/basics/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>HFFFL</title>
       <link>/tags/hfffl/</link>
-      <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/tags/hfffl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>histogram</title>
+      <link>/tags/histogram/</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/histogram/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>beginner</title>
+      <link>/tags/beginner/</link>
+      <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/beginner/</guid>
       <description></description>
     </item>
     

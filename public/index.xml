@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hugo Future Imperfect</title>
+    <title>Alexander C. Hungerford</title>
     <link>/</link>
-    <description>Recent content on Hugo Future Imperfect</description>
+    <description>Recent content on Alexander C. Hungerford</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Test Post 1 - Tidy Data</title>
+      <title>Tidy Tuesday pt 1</title>
+      <link>/blog/2020-12-06-tidy-tuesday-pt-1/</link>
+      <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2020-12-06-tidy-tuesday-pt-1/</guid>
+      <description>Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.1.2 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.0## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()Load datamtcars_tbl &amp;lt;- tibble(mtcars)mtcars_tbl## # A tibble: 32 x 11## mpg cyl disp hp drat wt qsec vs am gear carb## &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;## 1 21 6 160 110 3.</description>
+    </item>
+    
+    <item>
+      <title>Create a Histogram in R with ggplot2</title>
+      <link>/blog/2020-12-03-create-a-histogram-in-r-with-ggplot2/</link>
+      <pubDate>Thu, 03 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2020-12-03-create-a-histogram-in-r-with-ggplot2/</guid>
+      <description>OBJECTIVE: Demonstrate the basics of visualizing data from my fantasy football league using the ggplot2 package from the Tidyverse.
+Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.1.2 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.0## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()Import Datagm &amp;lt;- c(&amp;quot;Alex&amp;quot;, &amp;quot;Ashton&amp;quot;, &amp;quot;Mik&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Brett&amp;quot;, &amp;quot;Ian&amp;quot;, &amp;quot;Jack&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Todd&amp;quot;, &amp;quot;Nate&amp;quot;)# years league has been activeyear &amp;lt;- c(2012:2019)# podium placement in order by yearfirst &amp;lt;- c(&amp;quot;Mik&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Dave&amp;quot;)second &amp;lt;- c(&amp;quot;Jon&amp;quot;, &amp;quot;Alex&amp;quot;, &amp;quot;Ian&amp;quot;, &amp;quot;Todd&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Jon&amp;quot;)third &amp;lt;- c(&amp;quot;Katz&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Jack&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Todd&amp;quot;)podium &amp;lt;- tibble(year, first, second, third)# count Top 3 finishes by GMspodium_count &amp;lt;- podium %&amp;gt;%pivot_longer(cols = -year,values_to = &amp;#39;GM&amp;#39;) %&amp;gt;%count(name, GM) %&amp;gt;%pivot_wider(names_from = name, values_from = n, values_fill = list(n = 0))podium_count## # A tibble: 10 x 4## GM first second third## &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;## 1 Chris 1 1 1## 2 Dave 2 0 1## 3 Mik 1 0 0## 4 Nate 4 0 0## 5 Alex 0 1 0## 6 Ian 0 1 0## 7 Jon 0 4 0## 8 Todd 0 1 1## 9 Jack 0 0 1## 10 Katz 0 0 4ggplot(podium_count, aes(x = GM)) + geom_bar()</description>
+    </item>
+    
+    <item>
+      <title>Columns &amp; Rows: select, filter, mutate</title>
       <link>/blog/2020-12-02-test-post-1-tidy-data/</link>
       <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>/blog/2020-12-02-test-post-1-tidy-data/</guid>
-      <description>Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.1.2 v stringr 1.4.0## v readr 1.4.0 v forcats 0.5.0## -- Conflicts ------------------------------------------ tidyverse_conflicts() --## x dplyr::filter() masks stats::filter()## x dplyr::lag() masks stats::lag()Initial Data# years league has been activeyear &amp;lt;- c(2012:2019)# podium placementfirst &amp;lt;- c(&amp;quot;Mik&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Nate&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Dave&amp;quot;)second &amp;lt;- c(&amp;quot;Jon&amp;quot;, &amp;quot;Alex&amp;quot;, &amp;quot;Ian&amp;quot;, &amp;quot;Todd&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Jon&amp;quot;, &amp;quot;Jon&amp;quot;)third &amp;lt;- c(&amp;quot;Katz&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Jack&amp;quot;, &amp;quot;Dave&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Katz&amp;quot;, &amp;quot;Chris&amp;quot;, &amp;quot;Todd&amp;quot;)Create Tibblepodium &amp;lt;- tibble(year, first, second, third)# show datapodium## # A tibble: 8 x 4## year first second third## &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;## 1 2012 Mik Jon Katz ## 2 2013 Nate Alex Katz ## 3 2014 Nate Ian Jack ## 4 2015 Chris Todd Dave ## 5 2016 Nate Jon Katz ## 6 2017 Nate Chris Katz ## 7 2018 Dave Jon Chris## 8 2019 Dave Jon ToddAdd Variable (column)mutate() - create, modify, &amp;amp; delete variablestbl &amp;lt;- podium %&amp;gt;% mutate(dues = 60, .</description>
+      <description>OBJECTIVE: Demonstrate how to create and manipulate data with R and the Tidyverse using data from my fantasy football league.
+Add columns and change values with mutate()Choose columns with select()Choose rows with filter()Manipulate data with pivot_longer() &amp;amp; pivot_wider()Setuplibrary(tidyverse)## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --## v ggplot2 3.3.2 v purrr 0.3.4## v tibble 3.0.4 v dplyr 1.0.2## v tidyr 1.</description>
     </item>
     
     <item>
