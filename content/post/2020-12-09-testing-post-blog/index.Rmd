@@ -1,0 +1,29 @@
+---
+title: Testing-post-blog
+author: Alexander C. Hungerford
+date: '2020-12-09'
+slug: []
+categories:
+  - ggplot2
+tags:
+  - beginner
+description: ''
+featured: ''
+featuredalt: ''
+featuredpath: ''
+linktitle: ''
+type: post
+---
+
+```{r}
+library(ggplot2)
+head(mpg)
+```
+
+# Plot
+
+```{r}
+# basic plot
+ggplot(mpg) + geom_point(aes(x = displ, y = hwy))
+```
+

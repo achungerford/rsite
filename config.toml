@@ -1,3 +1,4 @@
+# Part 1 --------- Site-wide Parameters innate to Hugo
 baseurl = "/"
 languageCode = "en-us"
 title = "Alexander C. Hungerford"
@@ -11,6 +12,7 @@ pluralizeListTitles = false
 enableRobotsTXT = true
 canonifyURLs = true
 
+# Part 2 ---------- site-wide parameters custom to this theme
 [params]
   # Sets the meta tag description
   description          = "Personal website of Alexander C. Hungerford"
@@ -69,21 +71,9 @@ canonifyURLs = true
   MathJaxCDN = "//cdn.bootcss.com"
   MathJaxVersion = "2.7.1"
 
-# Disqus will take priority over Staticman (github.com/eduardoboucas/staticman)
-# due to its ease of use. Feel free to check out both and decide what you would
-# prefer to use. See Staticman.yml for additional settings.
-[params.staticman]
-  # Sets Statiman to be active
-  staticman = false
-  # Sets the location for Staticman to connect to
-  username  = ""
-  repo      = ""
-  branch    = ""
+# Part 3 --- deleted ---- Related to Staticman
 
-  [params.staticman.recaptcha]
-    sitekey = "SITE_KEY"
-    secret  = "ENCRYPTED_SECRET"
-
+# Part 4 --------------------- Sidebar
   # These are optional params related to the sidebar. They are recommended, but not
   # required for proper functionality. HTML is supported within the params.
 [params.intro]
@@ -108,6 +98,7 @@ canonifyURLs = true
 # Sets the number of recent posts to show in the sidebar. The default value is 5.
     sidebar = 5
 
+# Part 5 ----------------------------------- Sets Navigation Menu
 # Sets the menu items in the navigation bar
 # Identifier prepends a Font Awesome icon to the menu item
 [[menu.main]]
@@ -146,6 +137,8 @@ canonifyURLs = true
   identifier = "fa fa-envelope-o"
   weight = 6
 
+
+# Part 6 --------------------------------- Social Media Related
 # Sets Social Media icons to appear and link to your account. Value should be your
 # username unless otherwise noted. These are the icons affected by socialAppearAtTop
 # and socialAppearAtBottom.
